@@ -9,7 +9,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
@@ -29,6 +29,10 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+main {
+  margin: 0 auto;
 }
 
 h1 {

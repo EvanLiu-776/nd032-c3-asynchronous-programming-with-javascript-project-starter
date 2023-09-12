@@ -37,15 +37,22 @@ async function onPageLoad() {
 function setupClickHandlers() {
 	document.addEventListener('click', function (event) {
 		const { target } = event
-
 		// Race track form field
 		if (target.matches('.card.track')) {
 			handleSelectTrack(target)
 		}
 
+		if (target.matches('.card.track h3')) {
+			handleSelectTrack(target.parentElement)
+		}
+
 		// Podracer form field
 		if (target.matches('.card.podracer')) {
 			handleSelectPodRacer(target)
+		}
+
+		if (target.matches('.card.podracer p') || target.matches(".card.podracer h3")) {
+			handleSelectPodRacer(target.parentElement)
 		}
 
 		// Submit create race form
@@ -209,7 +216,6 @@ function handleSelectTrack(target) {
 }
 
 function handleAccelerate() {
-	console.log("accelerate button clicked")
 	accelerate(store.race_id);
 	// TODO - Invoke the API call to accelerate
 }
@@ -308,7 +314,7 @@ function resultsView(positions) {
 		</header>
 		<main>
 			${raceProgress(positions)}
-			<a href="/race">Start a new race</a>
+			<a href="/race" class="button">Start a new race</a>
 		</main>
 	`
 }
@@ -328,7 +334,7 @@ function raceProgress(positions) {
 				</td>
 			</tr>
 		`
-	})
+	}).join("")
 
 	return `
 		<main>
@@ -367,7 +373,7 @@ function defaultFetchOpts() {
 
 async function getTracks() {
 	// GET request to `${SERVER}/api/tracks`
-	console.log("get tracks");
+	// console.log("get tracks");
 	try {
 		const tracks = await (await fetch(`${SERVER}/api/tracks`)).json();
 		return tracks
@@ -378,7 +384,7 @@ async function getTracks() {
 
 async function getRacers() {
 	// GET request to `${SERVER}/api/cars`
-	console.log("get rackers");
+	// console.log("get rackers");
 	try {
 		const rackers = await (await fetch(`${SERVER}/api/cars`)).json();
 		return rackers
